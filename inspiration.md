@@ -1,17 +1,21 @@
 # 设计文档
 
-## 代码结构
+## 模块化与继承
 
-1. 配置与导入
-2. 数据结构
-3. 核心工具
-4. 智能体定义
-5. 运行与测试
+### 面向对象
 
-## 调度逻辑
+定义一个抽象的 BaseAgent 类，封装 LlmAgent 的初始化、内存服务和 Runner 配置。
 
-- **ResearcherAgent**: 收集信息、检索用户偏好
-- **WriterAgent**: 根据数据和风格要求撰写初稿
-- **FactCheckerAgent**: 核查报告中的关键事实
-- **FormatterAgent**: 应用格式、生成最终报告
+### 模块化/专业化
 
+每个 Agent 负责处理一个特定的 Pydantic Schema，例如 WriterAgent 负责生成 DraftReport。
+
+### 结构化 IO
+
+所有 Agent 都使用 input_schema 和 output_schema 强制结构化输入和输出。
+
+### 可观测性
+
+在 BaseAgent 或 Runner 中启用 enable_tracing=True。
+
+## 智能体角色
